@@ -1,21 +1,26 @@
 package amp.triples
 
-abstract class RestPull(val service: String? = null, val serviceKey: String? = null) {
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
 
-    abstract fun url(): String?
+abstract class RestPull(open val service: String? = null, open val serviceKey: String? = null) {
 
-}
+    abstract var uri: String?
 
-class ForecastSpace(service: String, serviceKey: String, baseDate: String = "20151201", baseTime: String = "0500", nx: String = "60", ny: String = "127", numOfRows: String = "10", pageNo: String = "1", type: String = "json") : RestPull(service, serviceKey) {
+    fun restPull(queue: RequestQueue) {
 
-    var baseDate: String = baseDate
-    var baseTime: String = baseTime
-    var nx: String = nx
-    var ny: String = ny
-    var numOfRows: String = numOfRows
-    var pageNo: String = pageNo
-    var type: String = type
+        val request = StringRequest(
+            Request.Method.GET,
+            uri,
+            Response.Listener { response -> Log.i("test", "$response") },
+            Response.ErrorListener {}
+        )
 
-    override fun url(): String? = "$service?ServiceKey=$serviceKey&base_date=$baseDate&base_time=$baseTime&nx=$nx&ny=$ny&numOfRows=$numOfRows&pageNo=$pageNo&type=$type"
+        queue.add(request)
+
+    }
 
 }
