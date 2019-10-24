@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TripleS</string>
+    <string name="service_weather">"http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData"</string>
 </resources>
