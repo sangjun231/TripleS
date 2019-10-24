@@ -13,8 +13,17 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val service = getString(R.string.service_weather)
-        val serviceKey = getString(R.string.weather_key)
+
+        val restPullManager = RestPullManager
+        restPullManager.service = TestForecastSpaceData(
+            getString(R.string.service_ForecastSpaceData),
+            getString(R.string.key_ForecastSpaceData)
+        )
+
+        restPullManager.service?.restPull(queue)
+
+
+//        Log.i("test", RestPullManager.service.Companion.response)
 
 //        val sample : String = "{\"response\":{\"header\":{\"resultCode\":\"0000\",\"resultMsg\":\"OK\"},\"body\":{\"items\":{\"item\":[\n" +
 //                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"T3H\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-50,\"nx\":1,\"ny\":1},\n" +
@@ -33,9 +42,6 @@ class MainActivity : AppCompatActivity() {
 //                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"VEC\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":74,\"nx\":1,\"ny\":1}]\n" +
 //                ",\"numOfRows\":308,\"pageNo\":1,\"totalCount\":308}}}}"
 //        Log.i("test2", WetherInfo(sample).map["POP"].toString())
-        val restPull = ForecastSpace(service, serviceKey)
-
-        restPull.restPull(queue)
 
     }
 }
