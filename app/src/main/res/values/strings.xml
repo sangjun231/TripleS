@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TripleS</string>
-    <string name="service_ForecastSpaceData">"http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData"</string>
+    <string name="splash_textViewSplash">Loading ...</string>
+
+    <!--  service  -->
+    <string name="service1_name">ForecastSpaceData</string>
+    <string name="service1_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
+
 </resources>
