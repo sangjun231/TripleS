@@ -6,26 +6,27 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class ForcastSpace {
-    var POP : String? = null
-    var PTY : String? = null
-    var R06 : String? = null
-    var REH : String? = null
-    var S06 : String? = null
-    var SKY : String? = null
-    var T3H : String? = null
-    var TMN : String? = null
-    var TMX : String? = null
-    var UUU : String? = null
-    var VVV : String? = null
-    var WAV : String? = null
-    var VEC : String? = null
-    var WSD : String? = null
+    var POP : String? = "default"
+    var PTY : String? = "default"
+    var R06 : String? = "default"
+    var REH : String? = "default"
+    var S06 : String? = "default"
+    var SKY : String? = "default"
+    var T3H : String? = "default"
+    var TMN : String? = "default"
+    var TMX : String? = "default"
+    var UUU : String? = "default"
+    var VVV : String? = "default"
+    var WAV : String? = "default"
+    var VEC : String? = "default"
+    var WSD : String? = "default"
+    var time : String? = "default"
     fun parseData(JSONData: JSONObject) {
         try {
-            findCategory(JSONData.getString("category"),JSONData.getString("fcstvalue"))
+            findCategory(JSONData.getString("category"),JSONData.getString("fcstValue"))
 
         }catch ( e : JSONException){
-            Log.i("JSON Error", "No value")
+            Log.i("JSON Error", "No value2")
         }
 
     }
