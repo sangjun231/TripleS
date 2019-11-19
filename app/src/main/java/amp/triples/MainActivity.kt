@@ -1,6 +1,7 @@
 package amp.triples
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +25,31 @@ class MainActivity : AppCompatActivity() {
         //  service 초기화
         serviceInit()
 
+        //  network 확인
+        val networkStatus = networkCheck()
+
+        if (networkStatus) {
+
+            Log.i("test", "connected")
+//            TODO()
+
+        } else {
+
+            Log.i("test", "disconnected")
+//            TODO()
+
+        }
+
         //  test code
-        forecastSpace!!.serviceParam = ForecastSpaceDataParam(DateTime.date(), DateTime.time(), "60", "127", "9", "1", "json")
+        forecastSpace!!.serviceParam = ForecastSpaceDataParam(
+            DateTime.date(),
+            DateTime.time(),
+            "60",
+            "127",
+            "9",
+            "1",
+            "json"
+        )
         val a = RestPullManager.url(0)
         Log.i("test", a)
 
@@ -59,5 +83,7 @@ class MainActivity : AppCompatActivity() {
         RestPullManager.serviceAdd(forecastSpace!!)
 
     }
+
+    private fun networkCheck() = (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected ?: false
 
 }
