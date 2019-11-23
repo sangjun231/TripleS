@@ -6,7 +6,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
 class MainActivity : AppCompatActivity() {
-    //test
+    //test2
     private val queue: RequestQueue by lazy { Volley.newRequestQueue(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
