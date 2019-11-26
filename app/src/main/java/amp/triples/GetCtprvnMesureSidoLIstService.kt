@@ -7,9 +7,9 @@ import java.io.InputStreamReader
 import java.net.URL
 
 
-class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
+class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceCommand {
 
-    var serviceParam: ForecastSpaceDataParam? = null
+    var serviceParam: GetCtprvnMesureSidoLIstParam? = null
 
     override fun url(): String {
 
@@ -18,13 +18,10 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
             append(service.serviceUrl)
             append(service.serviceName)
             append("?serviceKey=${service.serviceKey}")
-            append("&base_date=${serviceParam!!.base_date}")
-            append("&base_time=${serviceParam!!.base_time}")
-            append("&nx=${serviceParam!!.nx}")
-            append("&ny=${serviceParam!!.ny}")
             append("&numOfRows=${serviceParam!!.numOfRows}")
-            append("&pageNo=${serviceParam!!.pageNo}")
-            append("&type=${serviceParam!!.type}")
+            append("&sidoName=${serviceParam!!.sidoName}")
+            append("&searchCondition=${serviceParam!!.searchCondition}")
+            append("&_returnType=${serviceParam!!.type}")
 
         }.toString()
 
@@ -45,24 +42,24 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
 
                 }
 
-                val jsonObjectRoot = JSONObject(buffer).getJSONObject("response")
-                val jsonReulstCode = jsonObjectRoot.getJSONObject("header").getString("resultCode")
+//                val jsonObjectRoot = JSONObject(buffer).getJSONObject("list")
+//                val jsonReulstCode = jsonObjectRoot.getJSONObject("header").getString("resultCode")
 
-                when (jsonReulstCode) {
+//                when (jsonReulstCode) {
 
 //                    in "0001" -> TODO()
 //                    else -> TODO()
 
-                }
+//                }
 
-                val jsonObjectSub = jsonObjectRoot.getJSONObject("body").getJSONObject("items").getJSONArray("item")
+//                val jsonObjectSub = jsonObjectRoot.getJSONObject("body").getJSONObject("items").getJSONArray("item")
 
-                for (i in 0 until jsonObjectSub.length()) {
+//                for (i in 0 until jsonObjectSub.length()) {
 
-                    var a = jsonObjectSub.getJSONObject(i).getString("baseDate")
-                    Log.i("test", "$i: $a")
+//                    var a = jsonObjectSub.getJSONObject(i).getString("baseDate")
+//                    Log.i("test", "$i: $a")
 
-                }
+//                }
 
             })
 

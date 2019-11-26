@@ -9,7 +9,8 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var forecastSpace: ForecastSpaceDataService? = null
+    private var forecastSpaceData: ForecastSpaceDataService? = null
+    private var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //  test code
-        forecastSpace!!.serviceParam = ForecastSpaceDataParam(
+        forecastSpaceData!!.serviceParam = ForecastSpaceDataParam(
             DateTime.date(),
             DateTime.time(),
             "60",
@@ -52,6 +53,16 @@ class MainActivity : AppCompatActivity() {
         )
         val a = RestPullManager.url(0)
         Log.i("test", a)
+
+        getCtprvnMesureSidoLIst!!.serviceParam = GetCtprvnMesureSidoLIstParam(
+            "10",
+            "1",
+            "서울",
+            "DAILY",
+            "json"
+        )
+        val b = RestPullManager.url(1)
+        Log.i("test", b)
 
     }
 
@@ -78,9 +89,17 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.key_ForecastSpaceData)
         )
 
-        forecastSpace = ForecastSpaceDataService(service1)
+        val service2 = Service(
+            getString(R.string.service2_url),
+            getString(R.string.service2_name),
+            getString(R.string.key_getCtprvnMesureSidoLIst)
+        )
 
-        RestPullManager.serviceAdd(forecastSpace!!)
+        forecastSpaceData = ForecastSpaceDataService(service1)
+        getCtprvnMesureSidoLIst = GetCtprvnMesureSidoLIstService(service2)
+
+        RestPullManager.serviceAdd(forecastSpaceData!!)
+        RestPullManager.serviceAdd(getCtprvnMesureSidoLIst!!)
 
     }
 
