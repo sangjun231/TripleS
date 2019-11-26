@@ -1,37 +1,34 @@
 package amp.triples
 
-import java.time.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class DateTime {
+object DateTime {
 
-    companion object {
+    fun date(): String {
 
-        private var dateTime: LocalDateTime? = null
-        private val formatterBaseDate = DateTimeFormatter.ofPattern("yyyyMMdd")
-        private val formatterBaseTime = DateTimeFormatter.ofPattern("HHmm")
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val date = LocalDate.now()
 
-        private fun nowDateTime() {
+        return formatter.format(date)
 
-            dateTime = LocalDateTime.now()
+    }
 
-        }
+    fun time(): String {
 
-        fun date(): String? {
+        val formatter = DateTimeFormatter.ofPattern("HH00")
+        var time = LocalTime.now()
 
-            nowDateTime()
+        time = when (time.hour % 3) {
 
-            return dateTime?.format(formatterBaseDate)
-
-        }
-
-        fun time(): String? {
-
-            nowDateTime()
-
-            return dateTime?.format(formatterBaseTime)
+            0 -> time.plusHours(-1)
+            1 -> time.plusHours(-2)
+            else -> time
 
         }
+
+        return formatter.format(time)
 
     }
 

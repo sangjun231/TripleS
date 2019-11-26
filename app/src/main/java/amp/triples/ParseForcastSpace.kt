@@ -5,7 +5,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class ParseForcastSpace {
+object ParseForcastSpace {
 
     val forcastSpaces = arrayListOf<ForcastSpace>()
 
@@ -28,6 +28,8 @@ class ParseForcastSpace {
             var nowDate = jA.getJSONObject(0).getString("fcstDate")
             var nowIndex = 0
             var nowObject = forcastSpaces.get(nowIndex)
+            nowObject.date = nowDate
+            nowObject.time = nowTime
             for (i in 0 until jA.length()) {
                 if(nowTime != jA.getJSONObject(i).getString("fcstTime") || nowDate != jA.getJSONObject(i).getString("fcstDate")) {
                     nowTime = jA.getJSONObject(i).getString("fcstTime")

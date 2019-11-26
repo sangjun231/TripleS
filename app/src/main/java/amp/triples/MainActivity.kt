@@ -1,61 +1,89 @@
 package amp.triples
 
-import android.content.Intent
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
-import org.jetbrains.anko.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val queue: RequestQueue by lazy { Volley.newRequestQueue(this) }
+    private var forecastSpace: ForecastSpaceDataService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //  splash image 시작
+        startActivity<SplashActivity>()
 
-        val restPullManager = RestPullManager
-        restPullManager.service = TestForecastSpaceData(
-            getString(R.string.service_ForecastSpaceData),
+        //  my data 초기화
+        myDataInit()
+
+        //  service 초기화
+        serviceInit()
+
+        //  network 확인
+        val networkStatus = networkCheck()
+
+        if (networkStatus) {
+
+            Log.i("test", "connected")
+//            TODO()
+
+        } else {
+
+            Log.i("test", "disconnected")
+//            TODO()
+
+        }
+
+        //  test code
+        forecastSpace!!.serviceParam = ForecastSpaceDataParam(
+            DateTime.date(),
+            DateTime.time(),
+            "60",
+            "127",
+            "9",
+            "1",
+            "json"
+        )
+        val a = RestPullManager.url(0)
+        Log.i("test", a)
+
+    }
+
+    private fun myDataInit() {
+
+        //  data file 있으면 이어 쓰고, 없으면 생성한다.
+        try {
+
+            val myData = openFileOutput("myData.dat", Context.MODE_APPEND)
+
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+
+        }
+
+    }
+
+    private fun serviceInit() {
+
+        val service1 = Service(
+            getString(R.string.service1_url),
+            getString(R.string.service1_name),
             getString(R.string.key_ForecastSpaceData)
         )
 
-        restPullManager.service?.restPull(queue)
+        forecastSpace = ForecastSpaceDataService(service1)
 
-
-
-        /*val sendIntent :Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "This is test")
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
-        */
-
-
-//        Log.i("test", RestPullManager.service.Companion.response)
-
-//        val sample : String = "{\"response\":{\"header\":{\"resultCode\":\"0000\",\"resultMsg\":\"OK\"},\"body\":{\"items\":{\"item\":[\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"T3H\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-50,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"UUU\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-5,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"VVV\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-1,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"POP\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-1,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"REH\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":-1,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"PTY\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":0,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"R06\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":0,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"S06\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":0,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"TMN\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":0,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"TMX\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":0,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"SKY\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":1,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"WAV\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":1,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"WSD\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":5,\"nx\":1,\"ny\":1},\n" +
-//                "{\"baseDate\":20151021,\"baseTime\":\"0500\",\"category\":\"VEC\",\"fcstDate\":20151021,\"fcstTime\":\"0900\",\"fcstValue\":74,\"nx\":1,\"ny\":1}]\n" +
-//                ",\"numOfRows\":308,\"pageNo\":1,\"totalCount\":308}}}}"
-//        Log.i("test2", WetherInfo(sample).map["POP"].toString())
+        RestPullManager.serviceAdd(forecastSpace!!)
 
     }
+
+    private fun networkCheck() = (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected ?: false
+
 }
