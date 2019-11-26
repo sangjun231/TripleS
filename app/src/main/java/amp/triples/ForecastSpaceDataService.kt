@@ -22,7 +22,7 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
             append("&base_time=${serviceParam!!.base_time}")
             append("&nx=${serviceParam!!.nx}")
             append("&ny=${serviceParam!!.ny}")
-            append("&numOfRows=${serviceParam!!.numOfRow}")
+            append("&numOfRows=${serviceParam!!.numOfRows}")
             append("&pageNo=${serviceParam!!.pageNo}")
             append("&type=${serviceParam!!.type}")
 
