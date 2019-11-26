@@ -1,9 +1,11 @@
 package amp.triples
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val restPullManager = RestPullManager
         restPullManager.service = TestForecastSpaceData(
             getString(R.string.service_ForecastSpaceData),
@@ -21,6 +24,17 @@ class MainActivity : AppCompatActivity() {
         )
 
         restPullManager.service?.restPull(queue)
+
+
+
+        /*val sendIntent :Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "This is test")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+        */
 
 
 //        Log.i("test", RestPullManager.service.Companion.response)

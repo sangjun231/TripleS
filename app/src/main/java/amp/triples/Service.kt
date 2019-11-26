@@ -44,7 +44,7 @@ Service(
 
                 }
                 val testList = ParseForcastSpace().parseData(JSONObject(strResp))
-                Log.i("testParse",testList.get(0).PTY)
+                Log.i("testParse",testList.get(0).SKY)
 
             },
             Response.ErrorListener { }
