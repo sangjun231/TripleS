@@ -21,9 +21,10 @@ class ForcastSpace {
     var VEC : String? = "default"
     var WSD : String? = "default"
     var time : String? = "default"
+    var date : String? = "default"
     fun parseData(JSONData: JSONObject) {
         try {
-            findCategory(JSONData.getString("category"),JSONData.getString("fcstValue"))
+            findCategory(JSONData.getString("category"), JSONData.getString("fcstValue"))
 
         }catch ( e : JSONException){
             Log.i("JSON Error", "No value2")

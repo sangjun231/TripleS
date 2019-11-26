@@ -15,14 +15,17 @@ class ParseForcastSpace {
         try {
             //val jO: JSONObject = JSONObject(JSONData)
             val jA: JSONArray = JSONData.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item")
-            var nowtime = jA.getJSONObject(0).getString("baseTime")
+            var nowTime = jA.getJSONObject(0).getString("fcstTime")
+            var nowDate = jA.getJSONObject(0).getString("fcstDate")
             var nowIndex = 0
             for (i in 0 until jA.length()) {
-                if(nowtime != jA.getJSONObject(i).getString("baseTime")) {
-                    nowtime = jA.getJSONObject(i).getString("baseTime")
+                if(nowTime != jA.getJSONObject(i).getString("fcstTime") || nowDate != jA.getJSONObject(i).getString("fcstDate")) {
+                    nowTime = jA.getJSONObject(i).getString("fcstTime")
+                    nowDate = jA.getJSONObject(i).getString("fcstDate")
                     forcastSpaces.add(ForcastSpace())
                     nowIndex++
-                    forcastSpaces.get(nowIndex).time = nowtime
+                    forcastSpaces.get(nowIndex).time = nowTime
+                    forcastSpaces.get(nowIndex).date = nowDate
                 }
                 forcastSpaces.get(nowIndex).parseData(jA.getJSONObject(i))
             }
