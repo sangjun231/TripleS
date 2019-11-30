@@ -2,6 +2,13 @@
     <string name="app_name">TripleS</string>
     <string name="splash_textViewSplash">Loading ...</string>
 
+    <!--  myData  -->
+    <string name="myData_filename">myData</string>
+    <string name="myData_key_gpsEnabled">gpsEnabled</string>
+    <string name="myData_key_ox">ox</string>
+    <string name="myData_key_oy">oy</string>
+    <string name="myData_key_location">location</string>
+
     <!--  service  -->
     <string name="service1_name">ForecastSpaceData</string>
     <string name="service1_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
