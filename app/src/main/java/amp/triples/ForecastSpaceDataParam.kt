@@ -1,9 +1,9 @@
 package amp.triples
 
 data class ForecastSpaceDataParam(
-    val base_date: String?,
-    val base_time: String?,
-    val grid: Grid?,
-    val numOfRows: String?,
-    val pageNo: String?
+    val base_date: String? = null,
+    val base_time: String? = null,
+    val grid: Grid? = null,
+    val numOfRows: String? = null,
+    val pageNo: String? = null
 )

@@ -101,18 +101,11 @@ class MainActivity : AppCompatActivity() {
         if (!myData.gpsEnabled) {
 
             forecastSpaceData.serviceParam = ForecastSpaceDataParam(
-                null,
-                null,
-                Grid(myData.ox, myData.oy),
-                null,
-                null
+                grid = Grid(myData.ox, myData.oy)
             )
 
             getCtprvnMesureSidoLIst.serviceParam = GetCtprvnMesureSidoLIstParam(
-                null,
-                null,
-                myData.location,
-                "DAILY"
+                sidoName = myData.location
             )
 
         }
@@ -125,6 +118,8 @@ class MainActivity : AppCompatActivity() {
 //            val list = forecastSpaceData.parse(contents)
 
         }
+
+//        TODO()
 
     }
 
