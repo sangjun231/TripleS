@@ -45,12 +45,11 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
 
                 }
 
-
+                Log.i("Result",buffer)
                 val list = ParseForcastSpace.parseData(JSONObject(buffer))
-                Log.i("parseTest",list.get(0).date)
-                Log.i("parseTest",list.get(0).time)
-                Log.i("parseTest",list.get(0).SKY)
-                Log.i("parseTest",ParseForcastSpace.getData("20191126","1800")?.SKY)
+                Log.i("parseTest",list.getJSONObject("20191203").getJSONObject("1800").getString("SKY"))
+
+
                 val jsonObjectRoot = JSONObject(buffer).getJSONObject("response")
                 val jsonReulstCode = jsonObjectRoot.getJSONObject("header").getString("resultCode")
 
