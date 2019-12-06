@@ -33,24 +33,6 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
 
     }
 
-    fun parse(contents: String): ArrayList<ForcastSpace> {
-
-        val jsonObjectRoot = JSONObject(contents).getJSONObject("response")
-        val jsonReulstCode = jsonObjectRoot.getJSONObject("header").getString("resultCode")
-
-        when (jsonReulstCode) {
-
-//            in "0001" -> TODO()
-//            else -> TODO()
-
-        }
-
-//        val jsonObjectSub = jsonObjectRoot.getJSONObject("body").getJSONObject("items").getJSONArray("item")
-
-        return ParseForcastSpace.parseData(JSONObject(contents))
-
-    }
-
     private fun gpsTracker(): Location {
 
         val gpsTracker = GpsTracker(MainActivity.instance)

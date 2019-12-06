@@ -5,22 +5,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-object ParseForcastSpace {
+object Parse {
 
-    val forcastSpaces = arrayListOf<ForcastSpace>()
-
-    fun getData(fcstDate: String, fcstTime: String) : ForcastSpace?{
-        for(forcastSpace in forcastSpaces){
-            if(forcastSpace.date == fcstDate && forcastSpace.time == fcstTime){
-                return forcastSpace
-            }
-
-        }
-        return null
-    }
     fun parseData(JSONData: JSONObject) : JSONObject {
-        this.forcastSpaces.clear()
-        forcastSpaces.add(ForcastSpace())
 
         var data : JSONObject = JSONObject()
         var fcstDate : JSONObject = JSONObject()

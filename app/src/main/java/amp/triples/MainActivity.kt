@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
+import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var forecastSpaceData: ForecastSpaceDataService
     private lateinit var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService
+    private var parsedData = arrayListOf<JSONObject>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -66,10 +68,24 @@ class MainActivity : AppCompatActivity() {
 
         //  GPS 권한 확인
         if (!checkLocationServicesStatus()) {
+
             showDialogForLocationServiceSetting()
+
         } else {
+
             checkRunTimePermission()
+
         }
+
+        for (i in 0 until RestPullManager.size) {
+
+            val url = RestPullManager.url(i)
+            val contents = RestPullManager.request(url)
+            parsedData.add(Parse.parseData(JSONObject(contents)))
+
+        }
+
+//        TODO()
 
     }
 
@@ -142,17 +158,6 @@ class MainActivity : AppCompatActivity() {
             )
 
         }
-
-        for (i in 0 until RestPullManager.size) {
-
-            val url = RestPullManager.url(i)
-            val contents = RestPullManager.request(url)
-            Log.i("test", contents)
-//            val list = forecastSpaceData.parse(contents)
-
-        }
-
-//        TODO()
 
     }
 

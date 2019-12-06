@@ -2,6 +2,7 @@ package amp.triples
 
 import android.location.Location
 import android.util.Log
+import org.json.JSONObject
 
 class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceCommand {
 
