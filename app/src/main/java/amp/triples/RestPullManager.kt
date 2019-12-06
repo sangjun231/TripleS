@@ -27,8 +27,7 @@ object RestPullManager {
 
                 while (true) {
 
-                    val line: String? = inputStream.readLine() ?: break
-                    buffer += line
+                    buffer += inputStream.readLine() ?: break
 
                 }
 

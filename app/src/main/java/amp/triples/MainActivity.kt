@@ -5,11 +5,15 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var forecastSpace: ForecastSpaceDataService? = null
+    private lateinit var forecastSpaceData: ForecastSpaceDataService
+    private lateinit var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService
+    private lateinit var myData: MyData
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -26,47 +30,51 @@ class MainActivity : AppCompatActivity() {
         serviceInit()
 
         //  network 확인
-        val networkStatus = networkCheck()
+        if (networkCheck()) {
 
-        if (networkStatus) {
-
-            Log.i("test", "connected")
-//            TODO()
+            Log.i("NET", "connected")
+            networkOnInit()
 
         } else {
 
-            Log.i("test", "disconnected")
-//            TODO()
+            Log.i("NET", "disconnected")
+            networkOffInit()
 
         }
 
-        //  test code
-        forecastSpace!!.serviceParam = ForecastSpaceDataParam(
-            DateTime.date(),
-            DateTime.time(),
-            "60",
-            "127",
-            "9",
-            "1",
-            "json"
-        )
-        val a = RestPullManager.url(0)
-        Log.i("test", a)
+        // fragment 연결
+        val adapter = SwipePagerAdapter(supportFragmentManager)
+        viewPager.adapter =adapter
+        indicator.setViewPager(viewPager)
 
     }
 
     private fun myDataInit() {
 
-        //  data file 있으면 이어 쓰고, 없으면 생성한다.
-        try {
+        val sharedPref = getSharedPreferences(getString(R.string.myData_filename), Context.MODE_PRIVATE)
 
-            val myData = openFileOutput("myData.dat", Context.MODE_APPEND)
+        val gpsEnabled = sharedPref.getBoolean(getString(R.string.myData_key_gpsEnabled), true)
+        val ox = sharedPref.getFloat(getString(R.string.myData_key_ox), 60f)
+        val oy = sharedPref.getFloat(getString(R.string.myData_key_oy), 127f)
+        val location = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
 
-        } catch (e: Exception) {
+        myData = MyData(gpsEnabled, ox, oy, location)
 
-            e.printStackTrace()
+    }
 
-        }
+    override fun onStop() {
+
+        super.onStop()
+
+        val sharedPref = getSharedPreferences(getString(R.string.myData_filename), Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        editor.putBoolean(getString(R.string.myData_key_gpsEnabled), myData.gpsEnabled)
+        editor.putFloat(getString(R.string.myData_key_ox), myData.ox)
+        editor.putFloat(getString(R.string.myData_key_oy), myData.oy)
+        editor.putString(getString(R.string.myData_key_location), myData.location)
+
+        editor.apply()
 
     }
 
@@ -78,12 +86,55 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.key_ForecastSpaceData)
         )
 
-        forecastSpace = ForecastSpaceDataService(service1)
+        val service2 = Service(
+            getString(R.string.service2_url),
+            getString(R.string.service2_name),
+            getString(R.string.key_getCtprvnMesureSidoLIst)
+        )
 
-        RestPullManager.serviceAdd(forecastSpace!!)
+        forecastSpaceData = ForecastSpaceDataService(service1)
+        getCtprvnMesureSidoLIst = GetCtprvnMesureSidoLIstService(service2)
+
+        RestPullManager.serviceAdd(forecastSpaceData)
+        RestPullManager.serviceAdd(getCtprvnMesureSidoLIst)
 
     }
 
     private fun networkCheck() = (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected ?: false
+
+    private fun networkOnInit() {
+
+        //  GPS 설정을 하지 않은 경우 myData 에 저장된 위치로 request 한다.
+        if (!myData.gpsEnabled) {
+
+            forecastSpaceData.serviceParam = ForecastSpaceDataParam(
+                grid = Grid(myData.ox, myData.oy)
+            )
+
+            getCtprvnMesureSidoLIst.serviceParam = GetCtprvnMesureSidoLIstParam(
+                sidoName = myData.location
+            )
+
+        }
+
+        for (i in 0 until RestPullManager.size) {
+
+            val url = RestPullManager.url(i)
+            val contents = RestPullManager.request(url)
+            Log.i("test", contents)
+//            val list = forecastSpaceData.parse(contents)
+
+        }
+
+//        TODO()
+
+    }
+
+    private fun networkOffInit() {
+
+        longToast("네트워크 연결 필요")
+        finish()
+
+    }
 
 }

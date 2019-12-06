@@ -1,8 +1,7 @@
 package amp.triples
 
-data class MyData(
-    var gpsEnabled: Boolean,
-    var ox: Float,
-    var oy: Float,
-    var location: String
-)
+object MyData {
+    var gpsEnabled: Boolean? = null
+    var grid: Grid? = null
+    var location: String? = null
+}

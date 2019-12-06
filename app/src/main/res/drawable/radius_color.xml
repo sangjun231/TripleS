@@ -4,6 +4,6 @@
     <shape xmlns:android="http://schemas.android.com/apk/res/android"
         android:shape="oval">
         <solid
-            android:color="@android:color/blue"/>
+            android:color="@android:#437FB3"/>
     </shape>
 </selector>
