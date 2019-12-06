@@ -18,51 +18,42 @@ object ParseForcastSpace {
         }
         return null
     }
-    fun parseData(JSONData: JSONObject) : ArrayList<ForcastSpace> {
+    fun parseData(JSONData: JSONObject) : JSONObject {
         this.forcastSpaces.clear()
         forcastSpaces.add(ForcastSpace())
+
+        var data : JSONObject = JSONObject()
+        var fcstDate : JSONObject = JSONObject()
+        var fcstTime : JSONObject = JSONObject()
         try {
             //val jO: JSONObject = JSONObject(JSONData)
             val jA: JSONArray = JSONData.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item")
             var nowTime = jA.getJSONObject(0).getString("fcstTime")
             var nowDate = jA.getJSONObject(0).getString("fcstDate")
-            var nowIndex = 0
-            var nowObject = forcastSpaces.get(nowIndex)
-            nowObject.date = nowDate
-            nowObject.time = nowTime
-            for (i in 0 until jA.length()) {
-                if(nowTime != jA.getJSONObject(i).getString("fcstTime") || nowDate != jA.getJSONObject(i).getString("fcstDate")) {
-                    nowTime = jA.getJSONObject(i).getString("fcstTime")
-                    nowDate = jA.getJSONObject(i).getString("fcstDate")
-                    forcastSpaces.add(ForcastSpace())
-                    nowObject = forcastSpaces.get(nowIndex)
-                    nowIndex++
-                    nowObject.time = nowTime
-                    nowObject.date = nowDate
-                }
 
-                when(jA.getJSONObject(i).getString("category")){
-                    "POP" -> nowObject.POP = jA.getJSONObject(i).getString("fcstValue")
-                    "PTY" -> nowObject.PTY = jA.getJSONObject(i).getString("fcstValue")
-                    "R06" -> nowObject.R06 = jA.getJSONObject(i).getString("fcstValue")
-                    "REH" -> nowObject.REH = jA.getJSONObject(i).getString("fcstValue")
-                    "S06" -> nowObject.S06 = jA.getJSONObject(i).getString("fcstValue")
-                    "SKY" -> nowObject.SKY = jA.getJSONObject(i).getString("fcstValue")
-                    "T3H" -> nowObject.T3H = jA.getJSONObject(i).getString("fcstValue")
-                    "TMN" -> nowObject.TMN = jA.getJSONObject(i).getString("fcstValue")
-                    "TMX" -> nowObject.TMX = jA.getJSONObject(i).getString("fcstValue")
-                    "UUU" -> nowObject.UUU = jA.getJSONObject(i).getString("fcstValue")
-                    "VVV" -> nowObject.VVV = jA.getJSONObject(i).getString("fcstValue")
-                    "WAV" -> nowObject.WAV = jA.getJSONObject(i).getString("fcstValue")
-                    "VEC" -> nowObject.VEC = jA.getJSONObject(i).getString("fcstValue")
-                    "WSD" -> nowObject.WSD = jA.getJSONObject(i).getString("fcstValue")
-                    else -> {Log.i("JSONError","category is not valid")}
+            for(i in 0 until jA.length()){
+                if(nowDate!=jA.getJSONObject(i).getString("fcstDate")){
+                    fcstDate.put(nowTime,fcstTime)
+                    data.put(nowDate,fcstDate)
+                    fcstTime = JSONObject()
+                    fcstDate = JSONObject()
+                    nowDate = jA.getJSONObject(i).getString("fcstDate")
+                    nowTime = jA.getJSONObject(i).getString("fcstTime")
+                    Log.i("Parse",nowDate)
                 }
+                else if(nowTime != jA.getJSONObject(i).getString("fcstTime")){
+                    fcstDate.put(nowTime,fcstTime)
+                    fcstTime = JSONObject()
+                    nowTime = jA.getJSONObject(i).getString("fcstTime")
+                }
+                fcstTime.put(jA.getJSONObject(i).getString("category"),jA.getJSONObject(i).getString("fcstValue"))
             }
+            fcstDate.put(nowTime,fcstTime)
+            data.put(nowDate,fcstDate)
         }catch ( e : JSONException){
             Log.i("JSON Error", "No value1")
         }
-        return forcastSpaces
+        return data
     }
 
 
