@@ -1,6 +1,7 @@
 package amp.triples;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
+@SuppressLint("Registered")
 public class GpsTracker extends Service implements LocationListener {
 
     private final Context mContext;

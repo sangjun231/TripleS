@@ -1,5 +1,8 @@
 package amp.triples;
 
+import android.annotation.SuppressLint;
+
+@SuppressLint("Registered")
 public class GpsConverter {
 
     public static int TO_GRID = 0;
