@@ -5,31 +5,32 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class ForcastSpace {
-    var POP : String? = "default"
-    var PTY : String? = "default"
-    var R06 : String? = "default"
-    var REH : String? = "default"
-    var S06 : String? = "default"
-    var SKY : String? = "default"
-    var T3H : String? = "default"
-    var TMN : String? = "default"
-    var TMX : String? = "default"
-    var UUU : String? = "default"
-    var VVV : String? = "default"
-    var WAV : String? = "default"
-    var VEC : String? = "default"
-    var WSD : String? = "default"
-    var time : String? = "default"
+data class ForcastSpace (
+    var POP : String? = "default",
+    var PTY : String? = "default",
+    var R06 : String? = "default",
+    var REH : String? = "default",
+    var S06 : String? = "default",
+    var SKY : String? = "default",
+    var T3H : String? = "default",
+    var TMN : String? = "default",
+    var TMX : String? = "default",
+    var UUU : String? = "default",
+    var VVV : String? = "default",
+    var WAV : String? = "default",
+    var VEC : String? = "default",
+    var WSD : String? = "default",
+    var time : String? = "default",
+    var date : String? = "default"){
     fun parseData(JSONData: JSONObject) {
-        try {
-            findCategory(JSONData.getString("category"),JSONData.getString("fcstValue"))
+        try{
 
         }catch ( e : JSONException){
             Log.i("JSON Error", "No value2")
         }
 
     }
+<<<<<<< HEAD
 
     fun findCategory(key : String, value : String){
         when(key){
@@ -51,4 +52,6 @@ class ForcastSpace {
         }
     }
 
+=======
+>>>>>>> c2f6a1fd0d45c6445d5e7a81f59d055394c961e2
 }
