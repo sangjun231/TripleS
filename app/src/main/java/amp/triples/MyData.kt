@@ -2,7 +2,7 @@ package amp.triples
 
 data class MyData(
     var gpsEnabled: Boolean,
-    var ox: Int,
-    var oy: Int,
+    var ox: Float,
+    var oy: Float,
     var location: String
 )

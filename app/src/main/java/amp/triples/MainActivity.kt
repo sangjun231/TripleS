@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -47,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences(getString(R.string.myData_filename), Context.MODE_PRIVATE)
 
         val gpsEnabled = sharedPref.getBoolean(getString(R.string.myData_key_gpsEnabled), true)
-        val ox = sharedPref.getInt(getString(R.string.myData_key_ox), 60)
-        val oy = sharedPref.getInt(getString(R.string.myData_key_oy), 127)
+        val ox = sharedPref.getFloat(getString(R.string.myData_key_ox), 60f)
+        val oy = sharedPref.getFloat(getString(R.string.myData_key_oy), 127f)
         val location = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
 
         myData = MyData(gpsEnabled, ox, oy, location)
@@ -63,8 +64,8 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedPref.edit()
 
         editor.putBoolean(getString(R.string.myData_key_gpsEnabled), myData.gpsEnabled)
-        editor.putInt(getString(R.string.myData_key_ox), myData.ox)
-        editor.putInt(getString(R.string.myData_key_oy), myData.oy)
+        editor.putFloat(getString(R.string.myData_key_ox), myData.ox)
+        editor.putFloat(getString(R.string.myData_key_oy), myData.oy)
         editor.putString(getString(R.string.myData_key_location), myData.location)
 
         editor.apply()
@@ -125,7 +126,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun networkOffInit() {
 
-//        TODO()
+        longToast("네트워크 연결 필요")
+        finish()
 
     }
 
