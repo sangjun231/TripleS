@@ -30,7 +30,7 @@ data class ForcastSpace (
         }
 
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
     fun findCategory(key : String, value : String){
         when(key){
@@ -52,6 +52,6 @@ data class ForcastSpace (
         }
     }
 
-=======
->>>>>>> c2f6a1fd0d45c6445d5e7a81f59d055394c961e2
+//=======
+//>>>>>>> c2f6a1fd0d45c6445d5e7a81f59d055394c961e2
 }

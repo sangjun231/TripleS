@@ -15,7 +15,7 @@
 
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/indicator"
-            app:ci_drawable="@drawable/black_radius"
+            app:ci_drawable="@drawable/radius_color"
             app:ci_height="7dp"
             app:ci_width="7dp"
             app:ci_margin="4dp"

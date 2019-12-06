@@ -20,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // fragment 연결
+        val adapter = SwipePagerAdapter(supportFragmentManager)
+        viewPager.adapter =adapter
+        indicator.setViewPager(viewPager)
+
+
         //  splash image 시작
         startActivity<SplashActivity>()
 
@@ -42,10 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        // fragment 연결
-        val adapter = SwipePagerAdapter(supportFragmentManager)
-        viewPager.adapter =adapter
-        indicator.setViewPager(viewPager)
 
     }
 
