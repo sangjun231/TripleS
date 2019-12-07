@@ -27,7 +27,7 @@ object DateTime {
         val formatter = DateTimeFormatter.ofPattern("yyyyMMddHH00")
         var dateTime = LocalDateTime.now()
 
-        return formatter.format(dateTime)
+        return formatter.format(dateTime.plusHours(-1))
 
     }
 

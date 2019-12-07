@@ -5,7 +5,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-object Parse {
+object ParseForcaseSpaceData {
 
     fun parseData(JSONData: JSONObject) : JSONObject {
 
