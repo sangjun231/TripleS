@@ -23,28 +23,22 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var forecastSpaceData: ForecastSpaceDataService
+    private lateinit var forecastGrib: ForecastGribService
     private lateinit var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService
     private var parsedData = arrayListOf<JSONObject>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        //  splash image 시작
+        startActivity<SplashActivity>()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         instance = this
-
-        // fragment 연결
-        val adapter = SwipePagerAdapter(supportFragmentManager)
-        viewPager.adapter =adapter
-        indicator.setViewPager(viewPager)
-
-
-        //  splash image 시작
-        startActivity<SplashActivity>()
 
         //  시스템 언어 확인
         if (applicationContext.resources.configuration.locales.get(0).toString() != "ko_KR") {
@@ -92,7 +86,12 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-//        TODO()
+        MyData.parseData = parsedData
+
+        // fragment 연결
+        val adapter = SwipePagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapter
+        indicator.setViewPager(viewPager)
 
     }
 
@@ -103,11 +102,11 @@ class MainActivity : AppCompatActivity() {
         val gpsEnabled = sharedPref.getBoolean(getString(R.string.myData_key_gpsEnabled), true)
         val ox = sharedPref.getInt(getString(R.string.myData_key_ox), 60)
         val oy = sharedPref.getInt(getString(R.string.myData_key_oy), 127)
-        val location = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
+        val sido = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
 
         MyData.gpsEnabled = gpsEnabled
         MyData.grid = Grid(ox, oy)
-        MyData.location = location
+        MyData.sido = sido
 
     }
 
@@ -121,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean(getString(R.string.myData_key_gpsEnabled), MyData.gpsEnabled!!)
         editor.putInt(getString(R.string.myData_key_ox), MyData.grid!!.ox)
         editor.putInt(getString(R.string.myData_key_oy), MyData.grid!!.oy)
-        editor.putString(getString(R.string.myData_key_location), MyData.location!!)
+        editor.putString(getString(R.string.myData_key_location), MyData.sido!!)
 
         editor.apply()
 
@@ -141,11 +140,19 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.key_getCtprvnMesureSidoLIst)
         )
 
+        val service3 = Service(
+            getString(R.string.service3_url),
+            getString(R.string.service3_name),
+            getString(R.string.key_ForecastSpaceData)
+        )
+
         forecastSpaceData = ForecastSpaceDataService(service1)
         getCtprvnMesureSidoLIst = GetCtprvnMesureSidoLIstService(service2)
+        forecastGrib = ForecastGribService(service3)
 
         RestPullManager.serviceAdd(forecastSpaceData)
         RestPullManager.serviceAdd(getCtprvnMesureSidoLIst)
+        RestPullManager.serviceAdd(forecastGrib)
 
     }
 
@@ -161,7 +168,11 @@ class MainActivity : AppCompatActivity() {
             )
 
             getCtprvnMesureSidoLIst.serviceParam = GetCtprvnMesureSidoLIstParam(
-                sidoName = MyData.location!!
+                sidoName = MyData.sido!!
+            )
+
+            forecastGrib.serviceParam = ForecastGribParam(
+                grid = Grid(MyData.grid!!.ox, MyData.grid!!.oy)
             )
 
         }

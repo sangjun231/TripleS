@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  city  -->
-    <string-array name="cities">
+    <!--  sidos  -->
+    <string-array name="sidos">
 
         <item>서울</item>
         <item>부산</item>
