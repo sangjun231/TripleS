@@ -22,7 +22,6 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var forecastSpaceData: ForecastSpaceDataService
@@ -77,6 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        //  요청 및 파싱 작업
         for (i in 0 until RestPullManager.size) {
 
             val url = RestPullManager.url(i)
