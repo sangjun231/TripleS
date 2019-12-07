@@ -30,28 +30,4 @@ data class ForcastSpace (
         }
 
     }
-//<<<<<<< HEAD
-
-    fun findCategory(key : String, value : String){
-        when(key){
-            "POP" -> POP = value
-            "PTY" -> PTY = value
-            "R06" -> R06 = value
-            "REH" -> REH = value
-            "S06" -> S06 = value
-            "SKY" -> SKY = value
-            "T3H" -> T3H = value
-            "TMN" -> TMN = value
-            "TMX" -> TMX = value
-            "UUU" -> UUU = value
-            "VVV" -> VVV = value
-            "WAV" -> WAV = value
-            "VEC" -> VEC = value
-            "WSD" -> WSD = value
-            else -> {Log.i("JSONError","category is not valid")}
-        }
-    }
-
-//=======
-//>>>>>>> c2f6a1fd0d45c6445d5e7a81f59d055394c961e2
 }
