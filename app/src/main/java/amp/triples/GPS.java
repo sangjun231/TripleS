@@ -10,20 +10,6 @@ public class GPS extends AppCompatActivity {
     public static int TO_GPS = 1;
     private GpsTracker gpsTracker;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // LngXLatY tmp = convertGRID_GPS(TO_GRID, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-        //LatXLngY tmp2 = convertGRID_GPS(TO_GRID, 35.101148844565955, 129.02478725562108);
-        //LatXLngY tmp3 = convertGRID_GPS(TO_GRID, 33.500946412305076, 126.54663058817043);
-
-        // Log.e(">>", "x = " + tmp.x + ", y = " + tmp.y);
-        // Log.e(">>", "x = " + tmp2.x + ", y = " + tmp2.y);
-        //Log.e(">>", "x = " + tmp3.x + ", y = " + tmp3.y);
-    }
-
     class LngXLatY {
         public double lng;
         public double lat;

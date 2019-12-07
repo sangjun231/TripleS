@@ -38,45 +38,20 @@ public class JavaGPS extends AppCompatActivity
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+         /*
 
-        if (!checkLocationServicesStatus()) {
+        현재 GPS좌표를 받아옵니다.
+         gpsTracker = new GpsTracker(JavaGPS.this);
 
-            showDialogForLocationServiceSetting();
-        }else {
+            현재 GSP좌표의 위경도값을 각각 저장합니다.
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
 
-            checkRunTimePermission();
-        }
+            String address = getCurrentAddress(latitude, longitude);
+            textview_address.setText(address);
 
-        /*final TextView textview_address = (TextView)findViewById(R.id.textview);
-
-
-        Button ShowLocationButton = (Button) findViewById(R.id.button);
-        ShowLocationButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-
-                gpsTracker = new GpsTracker(JavaGPS.this);
-
-                double latitude = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
-
-                String address = getCurrentAddress(latitude, longitude);
-                textview_address.setText(address);
-
-                Toast.makeText(JavaGPS.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-            }
-        });*/
-    }
-
-
+            Toast.makeText(JavaGPS.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
      */
@@ -144,7 +119,7 @@ public class JavaGPS extends AppCompatActivity
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
 
 
-            // 3.  위치 값을 가져올 수 있음
+            // 3.  위치 값을 가져올 수 있습니다
 
 
 
@@ -174,7 +149,7 @@ public class JavaGPS extends AppCompatActivity
 
     public String getCurrentAddress( double latitude, double longitude) {
 
-        //지오코더... GPS를 주소로 변환
+        //지오코더... GPS를 주소로 변환합니다
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
         List<Address> addresses;
@@ -243,7 +218,7 @@ public class JavaGPS extends AppCompatActivity
 
             case GPS_ENABLE_REQUEST_CODE:
 
-                //사용자가 GPS 활성 시켰는지 검사
+                //사용자가 GPS 활성 시켰는지 검사합니다
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
