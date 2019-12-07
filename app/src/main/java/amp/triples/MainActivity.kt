@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        instance = this
+
         // fragment 연결
         val adapter = SwipePagerAdapter(supportFragmentManager)
         viewPager.adapter =adapter
