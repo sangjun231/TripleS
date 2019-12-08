@@ -15,26 +15,46 @@ object ParseForecastData {
         try {
             //val jO: JSONObject = JSONObject(JSONData)
             val jA: JSONArray = JSONData.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item")
-            var nowTime = jA.getJSONObject(0).getString("fcstTime")
-            var nowDate = jA.getJSONObject(0).getString("fcstDate")
+            val tempArray = ArrayList<JSONObject>()
+            for(i in 0 until jA.length()){
+                tempArray.add(jA.getJSONObject(i))
+            }
+            tempArray.sortWith(comparator = object :Comparator<JSONObject>{
+                override fun compare(o1: JSONObject?, o2: JSONObject?): Int {
+                    if(Integer.parseInt(o1?.getString("fcstDate")) > Integer.parseInt(o2?.getString("fcstDate"))){
+                        return 1;
+                    }
+                    else if(Integer.parseInt(o1?.getString("fcstDate")) == Integer.parseInt(o2?.getString("fcstDate"))){
+                        if(Integer.parseInt(o1?.getString("fcstTime")) > Integer.parseInt(o2?.getString("fcstTime")))
+                            return 1;
+                        else if(Integer.parseInt(o1?.getString("fcstTime")) == Integer.parseInt(o2?.getString("fcstTime")))
+                            return 0;
+                    }
+                    return -1
+                }
+
+            })
+
+            var nowTime = tempArray.get(0).getString("fcstTime")
+            var nowDate = tempArray.get(0).getString("fcstDate")
 
 
             for(i in 0 until jA.length()){
-                if(nowDate!=jA.getJSONObject(i).getString("fcstDate")){
+                if(nowDate!=tempArray.get(i).getString("fcstDate")){
                     fcstDate.put(nowTime,fcstTime)
                     data.put(nowDate,fcstDate)
                     fcstTime = JSONObject()
                     fcstDate = JSONObject()
-                    nowDate = jA.getJSONObject(i).getString("fcstDate")
-                    nowTime = jA.getJSONObject(i).getString("fcstTime")
+                    nowDate = tempArray.get(i).getString("fcstDate")
+                    nowTime = tempArray.get(i).getString("fcstTime")
                     Log.i("Parse",nowDate)
                 }
-                else if(nowTime != jA.getJSONObject(i).getString("fcstTime")){
+                else if(nowTime != tempArray.get(i).getString("fcstTime")){
                     fcstDate.put(nowTime,fcstTime)
                     fcstTime = JSONObject()
-                    nowTime = jA.getJSONObject(i).getString("fcstTime")
+                    nowTime = tempArray.get(i).getString("fcstTime")
                 }
-                fcstTime.put(jA.getJSONObject(i).getString("category"),jA.getJSONObject(i).getString("fcstValue"))
+                fcstTime.put(tempArray.get(i).getString("category"),tempArray.get(i).getString("fcstValue"))
             }
             fcstDate.put(nowTime,fcstTime)
             data.put(nowDate,fcstDate)
