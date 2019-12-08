@@ -86,10 +86,12 @@ class MainActivity : AppCompatActivity() {
         //  GetCtprvnMesureSidoLIst request 보내고 파싱
         val url2 = RestPullManager.url(1)
         val contents2 = RestPullManager.request(url2)
+        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents2)))
 
         //  ForecastGrib request 보내고 파싱
         val url3 = RestPullManager.url(2)
         val contents3 = RestPullManager.request(url3)
+        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents3)))
 
         MyData.parseData = parsedData
 
