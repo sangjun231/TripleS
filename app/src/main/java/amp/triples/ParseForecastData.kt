@@ -62,6 +62,43 @@ object ParseForecastData {
         return data
     }
 
+    fun parseFineDust(JSONData: JSONObject) : JSONObject{
+        var data : JSONObject = JSONObject()
+        try {
+            //val jO: JSONObject = JSONObject(JSONData)
+            val jA: JSONArray = JSONData.getJSONArray("list")
+            var dataTime = jA.getJSONObject(0).getString("dataTime").replace("-","").replace(":","").replace(" ","")
+            var nowTime = dataTime
+            var nowBorough = jA.getJSONObject(0).getString("cityName")
+            var time = JSONObject()
+            var borough = JSONObject()
+            for(i in 0 until jA.length()){
+                var dataTime = jA.getJSONObject(i).getString("dataTime").replace("-","").replace(":","").replace(" ","")
+                if(nowBorough != jA.getJSONObject(i).getString("cityName")){
+                    time.put(nowBorough,borough)
+                    nowBorough = jA.getJSONObject(i).getString("cityName")
+                    borough = JSONObject()
+                }
+                else if(nowTime != dataTime){
+                    time.put(nowBorough,borough)
+                    data.put(nowTime, time)
+                    nowBorough = jA.getJSONObject(i).getString("cityName")
+                    borough = JSONObject()
+                    nowTime = dataTime
+                    time = JSONObject()
+                }
+                borough.put("pm10Value",jA.getJSONObject(i).getString("pm10Value"))
+                borough.put("pm25Value",jA.getJSONObject(i).getString("pm25Value"))
+            }
+
+            time.put(nowBorough,borough)
+            data.put(nowTime, time)
+        }catch ( e : JSONException){
+            Log.i("JSON Error", "No value1")
+        }
+        return data
+    }
+
 
 
 }

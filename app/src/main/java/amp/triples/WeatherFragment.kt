@@ -22,6 +22,9 @@ class WeatherFragment : Fragment() {
         val root = MyData.parseData!!.get(1)
 //        val nowSky = root.getJSONObject(DateTime.baseTime2().substring(0, 8)).getJSONObject(DateTime.baseTime2().substring(8)).getInt("SKY")
 Log.i("test", root.toString())
+        Log.i("parsingTest",MyData.parseData!!.get(0).toString())
+        Log.i("parsingTest",MyData.parseData!!.get(1).toString())
+        Log.i("parsingTest",MyData.parseData!!.get(2).toString())
         //  위치 업데이트
         view.location.text = gu
 
