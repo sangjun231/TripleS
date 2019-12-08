@@ -24,7 +24,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/dataTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -32,7 +32,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/temperature"
+            android:id="@+id/emoticon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

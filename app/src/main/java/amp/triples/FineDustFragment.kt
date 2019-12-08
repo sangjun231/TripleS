@@ -13,6 +13,7 @@ class FineDustFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //
         val view = inflater.inflate(R.layout.fragment_finedust, container, false)
 
         return view //super.onCreateView(inflater, container, savedInstanceState)
