@@ -19,25 +19,30 @@ class WeatherFragment : Fragment() {
 
         val location = GpsTracker(MainActivity.instance).location
         val gu = MainActivity.instance.getCurrentAddress(location.latitude, location.longitude).split(" ")[2]
-        val root = MyData.parseData!![2]
-//        val nowSky = root.getJSONObject(DateTime.baseTime2().substring(0, 8)).getJSONObject(DateTime.baseTime2().substring(8)).getInt("SKY")
-Log.i("test", root.toString())
+        val forecastSpaceData = MyData.parseData!![0]
+        val forecastGrib = MyData.parseData!![2]
+        val forecastTimeData = MyData.parseData!![3]
+        val nowSky = forecastTimeData.getJSONObject(DateTime.now().substring(0, 8)).getJSONObject(DateTime.now().substring(8)).getInt("SKY")
+        val temp = forecastGrib.getInt("T1H")
+        Log.i("test", "$forecastSpaceData")
+
         //  위치 업데이트
         view.location.text = gu
 
         //  구름 업데이트
-//        with (view.status) {
-//
-//            text = when (nowSky) {
-//
-//                1 -> "맑음"
-//                3 -> "구름많음"
-//                else -> "흐림"
-//
-//            }
-//
-//        }
+        with (view.status) {
 
+            text = when (nowSky) {
+
+                1 -> "맑음"
+                3 -> "구름많음"
+                else -> "흐림"
+
+            }
+
+        }
+
+        view.temperature.text = "$temp°"
 
         return view //super.onCreateView(inflater, container, savedInstanceState)
     }

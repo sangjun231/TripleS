@@ -17,6 +17,8 @@
     <string name="service2_url">http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/</string>
     <string name="service3_name">ForecastGrib</string>
     <string name="service3_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
+    <string name="service4_name">ForecastTimeData</string>
+    <string name="service4_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
 
     <!--  System Error  -->
     <string name="error_network">네트워크 연결 필요</string>

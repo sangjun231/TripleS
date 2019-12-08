@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var forecastSpaceData: ForecastSpaceDataService
     private lateinit var forecastGrib: ForecastGribService
     private lateinit var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService
+    private lateinit var forecastTimeData: ForecastTimeDataService
     private var parsedData = arrayListOf<JSONObject>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,12 +87,17 @@ class MainActivity : AppCompatActivity() {
         //  GetCtprvnMesureSidoLIst request 보내고 파싱
         val url2 = RestPullManager.url(1)
         val contents2 = RestPullManager.request(url2)
-        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents2)))
+        parsedData.add(ParseForecastData.parseFineDust(JSONObject(contents2)))
 
         //  ForecastGrib request 보내고 파싱
         val url3 = RestPullManager.url(2)
         val contents3 = RestPullManager.request(url3)
-        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents3)))
+        parsedData.add(ParseForecastData.parseForecastGrip(JSONObject(contents3)))
+
+        //  ForecastTimeData request 보내고 파싱
+        val url4 = RestPullManager.url(3)
+        val contents4 = RestPullManager.request(url4)
+        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents4)))
 
         MyData.parseData = parsedData
 
@@ -153,13 +159,21 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.key_ForecastSpaceData)
         )
 
+        val service4 = Service(
+            getString(R.string.service4_url),
+            getString(R.string.service4_name),
+            getString(R.string.key_ForecastSpaceData)
+        )
+
         forecastSpaceData = ForecastSpaceDataService(service1)
         getCtprvnMesureSidoLIst = GetCtprvnMesureSidoLIstService(service2)
         forecastGrib = ForecastGribService(service3)
+        forecastTimeData = ForecastTimeDataService(service4)
 
         RestPullManager.serviceAdd(forecastSpaceData)
         RestPullManager.serviceAdd(getCtprvnMesureSidoLIst)
         RestPullManager.serviceAdd(forecastGrib)
+        RestPullManager.serviceAdd(forecastTimeData)
 
     }
 
@@ -179,6 +193,10 @@ class MainActivity : AppCompatActivity() {
             )
 
             forecastGrib.serviceParam = ForecastGribParam(
+                grid = Grid(MyData.grid!!.ox, MyData.grid!!.oy)
+            )
+
+            forecastTimeData.serviceParam = ForecastTimeDataParam(
                 grid = Grid(MyData.grid!!.ox, MyData.grid!!.oy)
             )
 
