@@ -5,22 +5,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-object ParseForcastSpace {
+object ParseForecastData {
 
-    val forcastSpaces = arrayListOf<ForcastSpace>()
-
-    fun getData(fcstDate: String, fcstTime: String) : ForcastSpace?{
-        for(forcastSpace in forcastSpaces){
-            if(forcastSpace.date == fcstDate && forcastSpace.time == fcstTime){
-                return forcastSpace
-            }
-
-        }
-        return null
-    }
-    fun parseData(JSONData: JSONObject) : JSONObject {
-        this.forcastSpaces.clear()
-        forcastSpaces.add(ForcastSpace())
+    fun parseForecastSpace(JSONData: JSONObject) : JSONObject {
 
         var data : JSONObject = JSONObject()
         var fcstDate : JSONObject = JSONObject()
@@ -30,6 +17,7 @@ object ParseForcastSpace {
             val jA: JSONArray = JSONData.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item")
             var nowTime = jA.getJSONObject(0).getString("fcstTime")
             var nowDate = jA.getJSONObject(0).getString("fcstDate")
+
 
             for(i in 0 until jA.length()){
                 if(nowDate!=jA.getJSONObject(i).getString("fcstDate")){
@@ -50,6 +38,24 @@ object ParseForcastSpace {
             }
             fcstDate.put(nowTime,fcstTime)
             data.put(nowDate,fcstDate)
+        }catch ( e : JSONException){
+            Log.i("JSON Error", "No value1")
+        }
+        return data
+    }
+
+
+    fun parseForecastGrip(JSONData: JSONObject) : JSONObject{
+        var data : JSONObject = JSONObject()
+        try {
+            //val jO: JSONObject = JSONObject(JSONData)
+            val jA: JSONArray = JSONData.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item")
+            data.put("baseDate",jA.getJSONObject(0).getString("baseDate"))
+            data.put("baseTime",jA.getJSONObject(0).getString("baseTime"))
+
+            for(i in 0 until jA.length()){
+                data.put(jA.getJSONObject(i).getString("category"),jA.getJSONObject(i).getString("obsrValue"))
+            }
         }catch ( e : JSONException){
             Log.i("JSON Error", "No value1")
         }
