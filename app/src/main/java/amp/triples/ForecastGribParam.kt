@@ -1,6 +1,6 @@
 package amp.triples
 
-data class ForecastSpaceDataParam(
+data class ForecastGribParam(
     val base_date: String? = null,
     val base_time: String? = null,
     val grid: Grid? = null,

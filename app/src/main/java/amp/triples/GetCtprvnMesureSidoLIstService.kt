@@ -1,11 +1,8 @@
 package amp.triples
 
+import android.location.Location
 import android.util.Log
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
-
 
 class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceCommand {
 
@@ -13,65 +10,50 @@ class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceComm
 
     override fun url(): String {
 
+        val sido = addrConvert(gpsTracker())
+
         val requestUrl = StringBuilder().apply {
 
             append(service.serviceUrl)
             append(service.serviceName)
             append("?serviceKey=${service.serviceKey}")
-            append("&numOfRows=${serviceParam!!.numOfRows}")
-            append("&sidoName=${serviceParam!!.sidoName}")
-            append("&searchCondition=${serviceParam!!.searchCondition}")
-            append("&_returnType=${serviceParam!!.type}")
+            append("&numOfRows=${serviceParam?.numOfRows ?: 25}")
+            append("&sidoName=${serviceParam?.sidoName ?: sido }")
+            append("&searchCondition=${serviceParam?.searchCondition ?: "DAILY"}")
+            append("&_returnType=json")
 
         }.toString()
 
-        Log.i("url", requestUrl)
+        Log.i("URL", requestUrl)
 
-        try {
+        return requestUrl
 
-            val requestThread = Thread(Runnable{
+    }
 
-                val url = URL(requestUrl)
-                val inputStream = BufferedReader(InputStreamReader(url.openStream(), "UTF-8"))
-                var buffer = ""
+    private fun gpsTracker(): Location {
 
-                while (true) {
+        val gpsTracker = GpsTracker(MainActivity.instance)
+        //  GPS 좌표로 GPS를 불러옴
+        return gpsTracker.getLocation()
 
-                    val line: String? = inputStream.readLine() ?: break
-                    buffer += line
+    }
 
-                }
+    private fun addrConvert(location: Location): String? {
 
-//                val jsonObjectRoot = JSONObject(buffer).getJSONObject("list")
-//                val jsonReulstCode = jsonObjectRoot.getJSONObject("header").getString("resultCode")
+        val addr = MainActivity.instance.getCurrentAddress(location.latitude, location.longitude)
+        val sido = addr.split(" ")[1]
 
-//                when (jsonReulstCode) {
+        for (sidos in MainActivity.instance.resources.getStringArray(R.array.sidos)) {
 
-//                    in "0001" -> TODO()
-//                    else -> TODO()
+            if (sido.contains(sidos)) {
 
-//                }
+                return sidos
 
-//                val jsonObjectSub = jsonObjectRoot.getJSONObject("body").getJSONObject("items").getJSONArray("item")
-
-//                for (i in 0 until jsonObjectSub.length()) {
-
-//                    var a = jsonObjectSub.getJSONObject(i).getString("baseDate")
-//                    Log.i("test", "$i: $a")
-
-//                }
-
-            })
-
-            requestThread.start()
-
-        } catch (e: Exception) {
-
-            e.printStackTrace()
+            }
 
         }
 
-        return "abc"
+        return null
 
     }
 

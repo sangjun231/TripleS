@@ -3,9 +3,9 @@ package amp.triples
 import android.location.Location
 import android.util.Log
 
-class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
+class ForecastTimeDataService(private val service: Service) : ServiceCommand {
 
-    var serviceParam: ForecastSpaceDataParam? = null
+    var serviceParam: ForecastTimeDataParam? = null
 
     override fun url(): String {
 
@@ -16,8 +16,8 @@ class ForecastSpaceDataService(private val service: Service) : ServiceCommand {
             append(service.serviceUrl)
             append(service.serviceName)
             append("?serviceKey=${service.serviceKey}")
-            append("&base_date=${serviceParam?.base_date ?: DateTime.baseTime().substring(0, 8)}")
-            append("&base_time=${serviceParam?.base_time ?: DateTime.baseTime().substring(8)}")
+            append("&base_date=${serviceParam?.base_date ?: DateTime.baseTime3().substring(0, 8)}")
+            append("&base_time=${serviceParam?.base_time ?: DateTime.baseTime3().substring(8)}")
             append("&nx=${serviceParam?.grid?.ox ?: grid.ox}")
             append("&ny=${serviceParam?.grid?.oy ?: grid.ox}")
             append("&numOfRows=${serviceParam?.numOfRows ?: 200}")
