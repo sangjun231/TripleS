@@ -17,7 +17,7 @@ class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceComm
             append(service.serviceUrl)
             append(service.serviceName)
             append("?serviceKey=${service.serviceKey}")
-            append("&numOfRows=${serviceParam?.numOfRows ?: 10}")
+            append("&numOfRows=${serviceParam?.numOfRows ?: 25}")
             append("&sidoName=${serviceParam?.sidoName ?: sido }")
             append("&searchCondition=${serviceParam?.searchCondition ?: "DAILY"}")
             append("&_returnType=json")

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="100dp"
             android:paddingVertical="50dp">
@@ -24,45 +27,130 @@
                 android:text="성북구"
                 android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/nowStateTet"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/now10Image"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_2"
+                    tools:srcCompat="@drawable/emoticon_eight_level_big_2" />
+
+                <ImageView
+                    android:id="@+id/now25Image"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="미세먼지" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="초미세먼지" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pm10Status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="좋음" />
+
+                <TextView
+                    android:id="@+id/pm25Status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="좋음" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="보통" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/nowDustImage"
-                android:layout_width="match_parent"
-                android:layout_height="84dp"
-                app:srcCompat="@android:drawable/btn_dialog" />
+                <TextView
+                    android:id="@+id/now10Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0μg/m³" />
 
-            <TextView
-                android:id="@+id/nowDustText"
-                android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:gravity="center_horizontal"
-                android:text="50μg/m³" />
+                <TextView
+                    android:id="@+id/now25Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0μg/m³" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/bottom_bar" />
+            android:text="미세먼지" />
 
         <SeekBar
-            android:id="@+id/seekBar4"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:id="@+id/pm10Bar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:longClickable="false"
+            android:max="100"
+            android:progressDrawable="@drawable/pm10bar" />
+
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50" />
+            android:clickable="true"
+            android:text="초미세먼지" />
+
+        <SeekBar
+            android:id="@+id/pm25Bar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:longClickable="false"
+            android:progressDrawable="@drawable/pm25bar" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp">
 
@@ -75,13 +163,15 @@
                 <ImageView
                     android:id="@+id/good"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_2" />
 
                 <TextView
                     android:id="@+id/goodText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:text="좋음" />
 
@@ -94,15 +184,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/good2"
+                    android:id="@+id/normal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_4" />
 
                 <TextView
-                    android:id="@+id/goodText2"
+                    android:id="@+id/normalText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:text="보통" />
             </LinearLayout>
@@ -114,15 +206,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/good3"
+                    android:id="@+id/bad"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_5" />
 
                 <TextView
-                    android:id="@+id/goodText3"
+                    android:id="@+id/badText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:text="나쁨" />
             </LinearLayout>
@@ -134,15 +228,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/good5"
+                    android:id="@+id/worst"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_dialog" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/emoticon_eight_level_big_7" />
 
                 <TextView
-                    android:id="@+id/goodText4"
+                    android:id="@+id/worstText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:text="매우나쁨" />
             </LinearLayout>
