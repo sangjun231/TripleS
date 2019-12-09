@@ -119,6 +119,4 @@ object ParseForecastData {
         return data
     }
 
-
-
 }

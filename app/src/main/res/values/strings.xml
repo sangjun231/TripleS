@@ -1,25 +1,9 @@
 <resources>
-
     <string name="app_name">TripleS</string>
     <string name="splash_textViewSplash">Loading ...</string>
-
-    <!--  myData  -->
-    <string name="myData_filename">myData</string>
-    <string name="myData_key_gpsEnabled">gpsEnabled</string>
-    <string name="myData_key_ox">ox</string>
-    <string name="myData_key_oy">oy</string>
-    <string name="myData_key_location">location</string>
 
     <!--  service  -->
     <string name="service1_name">ForecastSpaceData</string>
     <string name="service1_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
-    <string name="service2_name">getCtprvnMesureSidoLIst</string>
-    <string name="service2_url">http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/</string>
-    <string name="service3_name">ForecastGrib</string>
-    <string name="service3_url">http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/</string>
-
-    <!--  System Error  -->
-    <string name="error_network">네트워크 연결 필요</string>
-    <string name="error_systemLanguage">시스템 언어를 대한민국으로 해주세요</string>
 
 </resources>

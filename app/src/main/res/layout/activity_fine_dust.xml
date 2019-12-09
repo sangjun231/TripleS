@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="100dp"
             android:paddingVertical="50dp">
@@ -25,20 +27,21 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/nowConc"
+                android:id="@+id/nowStateTet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="보통" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
+                android:id="@+id/nowDustImage"
+                android:layout_width="84dp"
                 android:layout_height="84dp"
-                app:srcCompat="@android:drawable/btn_dialog" />
+                app:srcCompat="@android:drawable/btn_dialog"
+                tools:srcCompat="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/nowDustText"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:gravity="center_horizontal"
@@ -46,15 +49,9 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/bottom_bar" />
-
         <SeekBar
             android:id="@+id/seekBar4"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            style="@style/Widget.AppCompat.SeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
