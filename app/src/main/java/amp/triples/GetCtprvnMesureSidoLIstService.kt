@@ -17,7 +17,7 @@ class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceComm
             append(service.serviceUrl)
             append(service.serviceName)
             append("?serviceKey=${service.serviceKey}")
-            append("&numOfRows=${serviceParam?.numOfRows ?: 10}")
+            append("&numOfRows=${serviceParam?.numOfRows ?: 25}")
             append("&sidoName=${serviceParam?.sidoName ?: sido }")
             append("&searchCondition=${serviceParam?.searchCondition ?: "DAILY"}")
             append("&_returnType=json")
@@ -41,13 +41,13 @@ class GetCtprvnMesureSidoLIstService(private val service: Service) : ServiceComm
     private fun addrConvert(location: Location): String? {
 
         val addr = MainActivity.instance.getCurrentAddress(location.latitude, location.longitude)
-        val addrCity = addr.split(" ")[1]
+        val sido = addr.split(" ")[1]
 
-        for (city in MainActivity.instance.resources.getStringArray(R.array.cities)) {
+        for (sidos in MainActivity.instance.resources.getStringArray(R.array.sidos)) {
 
-            if (addrCity.contains(city)) {
+            if (sido.contains(sidos)) {
 
-                return city
+                return sidos
 
             }
 

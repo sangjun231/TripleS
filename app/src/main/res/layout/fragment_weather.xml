@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,26 +20,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="성북구"
+            android:text="무슨구"
             android:textColor="#437FB3"
-            android:textSize="30sp" />
+            android:textSize="40dp" />
 
         <TextView
-            android:id="@+id/dataTime"
+            android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="대체로 맑음"
-            android:textSize="18sp" />
+            android:text="날씨상태"
+            android:textColor="#437FB3"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/emoticon"
+            android:id="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo"
             android:gravity="center"
             android:paddingVertical="20dp"
-            android:text="4°"
-            android:textSize="54sp" />
+            android:text="0°"
+            android:textColor="#437FB3"
+            android:textSize="50sp" />
+
+        <ImageView
+            android:id="@+id/currentSky"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,27 +61,19 @@
             android:id="@+id/dayOfTheWeek1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="화요일"
-            android:textSize="20sp" />
+            android:layout_weight="0"
+            android:text="몇요일"
+            android:textColor="#437FB3"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/maxTemp1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="4"
+            android:layout_weight="0"
+            android:text="   오늘"
+            android:textColor="#437FB3"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/minTemp1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="-6°"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <View
@@ -85,36 +87,16 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/timeUnit"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/timeOfHours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="오후 6시"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/statusImage1"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:scaleType="centerInside"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/tempOfHours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="4°"
-                android:textSize="18sp" />
         </LinearLayout>
+
     </HorizontalScrollView>
 
     <View
@@ -124,54 +106,5 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
         android:background="#6BD6D6D6" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="10dp">
-
-            <TextView
-                android:id="@+id/dayOfTheWeek2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="수요일"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/statusImage2"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/maxTemp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="6°"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/minTemp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="-4°"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

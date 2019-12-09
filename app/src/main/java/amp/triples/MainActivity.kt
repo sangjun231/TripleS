@@ -23,34 +23,29 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var forecastSpaceData: ForecastSpaceDataService
+    private lateinit var forecastGrib: ForecastGribService
     private lateinit var getCtprvnMesureSidoLIst: GetCtprvnMesureSidoLIstService
+    private lateinit var forecastTimeData: ForecastTimeDataService
     private var parsedData = arrayListOf<JSONObject>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //  splash image 시작
+        startActivity<SplashActivity>()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         instance = this
 
-        // fragment 연결
-        val adapter = SwipePagerAdapter(supportFragmentManager)
-        viewPager.adapter =adapter
-        indicator.setViewPager(viewPager)
-
-
-        //  splash image 시작
-        startActivity<SplashActivity>()
-
         //  시스템 언어 확인
         if (applicationContext.resources.configuration.locales.get(0).toString() != "ko_KR") {
 
-           longToast(getString(R.string.error_systemLanguage))
-           finish()
+            longToast(getString(R.string.error_systemLanguage))
+            finish()
 
         }
 
@@ -84,15 +79,32 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        for (i in 0 until RestPullManager.size) {
+        //  ForecastSpaceData request 보내고 파싱
+        val url = RestPullManager.url(0)
+        val contents = RestPullManager.request(url)
+        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents)))
 
-            val url = RestPullManager.url(i)
-            val contents = RestPullManager.request(url)
-            parsedData.add(Parse.parseData(JSONObject(contents)))
+        //  GetCtprvnMesureSidoLIst request 보내고 파싱
+        val url2 = RestPullManager.url(1)
+        val contents2 = RestPullManager.request(url2)
+        parsedData.add(ParseForecastData.parseFineDust(JSONObject(contents2)))
 
-        }
+        //  ForecastGrib request 보내고 파싱
+        val url3 = RestPullManager.url(2)
+        val contents3 = RestPullManager.request(url3)
+        parsedData.add(ParseForecastData.parseForecastGrip(JSONObject(contents3)))
 
-//        TODO()
+        //  ForecastTimeData request 보내고 파싱
+        val url4 = RestPullManager.url(3)
+        val contents4 = RestPullManager.request(url4)
+        parsedData.add(ParseForecastData.parseForecastSpace(JSONObject(contents4)))
+
+        MyData.parseData = parsedData
+
+        // fragment 연결
+        val adapter = SwipePagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapter
+        indicator.setViewPager(viewPager)
 
     }
 
@@ -103,11 +115,11 @@ class MainActivity : AppCompatActivity() {
         val gpsEnabled = sharedPref.getBoolean(getString(R.string.myData_key_gpsEnabled), true)
         val ox = sharedPref.getInt(getString(R.string.myData_key_ox), 60)
         val oy = sharedPref.getInt(getString(R.string.myData_key_oy), 127)
-        val location = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
+        val sido = sharedPref.getString(getString(R.string.myData_key_location), "서울")!!
 
         MyData.gpsEnabled = gpsEnabled
         MyData.grid = Grid(ox, oy)
-        MyData.location = location
+        MyData.sido = sido
 
     }
 
@@ -121,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean(getString(R.string.myData_key_gpsEnabled), MyData.gpsEnabled!!)
         editor.putInt(getString(R.string.myData_key_ox), MyData.grid!!.ox)
         editor.putInt(getString(R.string.myData_key_oy), MyData.grid!!.oy)
-        editor.putString(getString(R.string.myData_key_location), MyData.location!!)
+        editor.putString(getString(R.string.myData_key_location), MyData.sido!!)
 
         editor.apply()
 
@@ -141,11 +153,27 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.key_getCtprvnMesureSidoLIst)
         )
 
+        val service3 = Service(
+            getString(R.string.service3_url),
+            getString(R.string.service3_name),
+            getString(R.string.key_ForecastSpaceData)
+        )
+
+        val service4 = Service(
+            getString(R.string.service4_url),
+            getString(R.string.service4_name),
+            getString(R.string.key_ForecastSpaceData)
+        )
+
         forecastSpaceData = ForecastSpaceDataService(service1)
         getCtprvnMesureSidoLIst = GetCtprvnMesureSidoLIstService(service2)
+        forecastGrib = ForecastGribService(service3)
+        forecastTimeData = ForecastTimeDataService(service4)
 
         RestPullManager.serviceAdd(forecastSpaceData)
         RestPullManager.serviceAdd(getCtprvnMesureSidoLIst)
+        RestPullManager.serviceAdd(forecastGrib)
+        RestPullManager.serviceAdd(forecastTimeData)
 
     }
 
@@ -161,7 +189,15 @@ class MainActivity : AppCompatActivity() {
             )
 
             getCtprvnMesureSidoLIst.serviceParam = GetCtprvnMesureSidoLIstParam(
-                sidoName = MyData.location!!
+                sidoName = MyData.sido!!
+            )
+
+            forecastGrib.serviceParam = ForecastGribParam(
+                grid = Grid(MyData.grid!!.ox, MyData.grid!!.oy)
+            )
+
+            forecastTimeData.serviceParam = ForecastTimeDataParam(
+                grid = Grid(MyData.grid!!.ox, MyData.grid!!.oy)
             )
 
         }
