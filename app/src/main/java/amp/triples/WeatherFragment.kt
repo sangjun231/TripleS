@@ -39,22 +39,40 @@ class WeatherFragment : Fragment() {
         //  구름 업데이트
         with(view.status) {
 
-            text = when (forecastTimeData.getJSONObject(DateTime.now().substring(0, 8))
+            when (forecastTimeData.getJSONObject(DateTime.now().substring(0, 8))
                 .getJSONObject(DateTime.now().substring(8)).getInt("PTY")) {
 
                 0 ->
                     when (forecastTimeData.getJSONObject(DateTime.now().substring(0, 8))
                         .getJSONObject(DateTime.now().substring(8)).getInt("SKY")) {
 
-                        1 -> "맑음"
-                        3 -> "구름많음"
-                        else -> "흐림"
+                        1 -> {
+                            text = "맑음"
+                            view.currentSky.setImageResource(R.drawable.weather_sunny)
+                        }
+                        3 -> {
+                            text = "구름많음"
+                            view.currentSky.setImageResource(R.drawable.weather_cloudandsun)
+                        }
+                        else -> {
+                            text = "흐림"
+                            view.currentSky.setImageResource(R.drawable.weather_cloudy)
+                        }
 
                     }
 
-                1, 2 -> "비"
-                3 -> "눈"
-                else -> "소나기"
+                1, 2 -> {
+                    text = "비"
+                    view.currentSky.setImageResource(R.drawable.weather_rain)
+                }
+                3 -> {
+                    text = "눈"
+                    view.currentSky.setImageResource(R.drawable.weather_snow)
+                }
+                else -> {
+                    text = "소나기"
+                    view.currentSky.setImageResource(R.drawable.weather_umbrella)
+                }
 
             }
 

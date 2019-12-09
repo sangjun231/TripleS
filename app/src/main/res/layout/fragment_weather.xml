@@ -42,12 +42,12 @@
             android:paddingVertical="20dp"
             android:text="0°"
             android:textColor="#437FB3"
-            android:textSize="50sp" />
+            android:textSize="45sp" />
 
         <ImageView
             android:id="@+id/currentSky"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="100dp"
             tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
