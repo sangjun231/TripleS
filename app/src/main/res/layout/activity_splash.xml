@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".SplashActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/baloo"
+        android:gravity="center"
+        android:text="Weadust"
+        android:textColor="#437FB3"
+        android:textSize="36dp" />
+
     <ImageView
         android:id="@+id/imageViewSplash"
         android:layout_width="150dp"
@@ -18,8 +28,9 @@
         android:id="@+id/textViewSplash2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo"
         android:text="@string/splash_textViewSplash"
-        android:textColor="@android:color/white"
-        android:textSize="25sp" />
+        android:textColor="#437FB3"
+        android:textSize="30dp" />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,26 +20,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="성북구"
+            android:text="무슨구"
             android:textColor="#437FB3"
-            android:textSize="30sp" />
+            android:textSize="40dp" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="대체로 맑음"
-            android:textSize="18sp" />
+            android:text="날씨상태"
+            android:textColor="#437FB3"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo"
             android:gravity="center"
             android:paddingVertical="20dp"
-            android:text="4°"
-            android:textSize="54sp" />
+            android:text="0°"
+            android:textColor="#437FB3"
+            android:textSize="50sp" />
+
+        <ImageView
+            android:id="@+id/currentSky"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,8 +61,17 @@
             android:id="@+id/dayOfTheWeek1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="화요일"
+            android:layout_weight="0"
+            android:text="몇요일"
+            android:textColor="#437FB3"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="   오늘"
+            android:textColor="#437FB3"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -68,17 +87,17 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="100dp">
 
         <LinearLayout
             android:id="@+id/timeUnit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
         </LinearLayout>
 
-    </HorizontalScrollView >
+    </HorizontalScrollView>
 
     <View
         android:id="@+id/view2"
