@@ -82,19 +82,20 @@
         android:layout_marginVertical="10dp"
         android:background="#6BD6D6D6" />
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
 
         <LinearLayout
             android:id="@+id/timeUnit"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-    </ScrollView>
+        </LinearLayout>
+
+    </HorizontalScrollView >
 
     <View
         android:id="@+id/view2"
