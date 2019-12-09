@@ -1,15 +1,12 @@
 package amp.triples
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_finedust.view.*
 import kotlinx.android.synthetic.main.fragment_weather.view.location
-import org.jetbrains.anko.sdk25.coroutines.onTouch
 
 class FineDustFragment : Fragment() {
     override fun onCreateView(
@@ -28,13 +25,10 @@ class FineDustFragment : Fragment() {
         val forecastFineDust = MyData.parseData!![1]
         var now10Pm = Integer.parseInt(forecastFineDust.getJSONObject(gu).getString("pm10Value"))
         var now25Pm = Integer.parseInt(forecastFineDust.getJSONObject(gu).getString("pm25Value"))
-        Log.i("test", forecastFineDust.toString())
 
         //  위치 업데이트
         view.location.text = gu
 
-
-        Log.i("DataTest",now10Pm.toString())
         //  구름 업데이트
         with(view) {
 

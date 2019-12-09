@@ -1,7 +1,7 @@
 package amp.triples
 
+import DateTime
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_weather.view.*
 import java.time.DayOfWeek
 import java.time.LocalDateTime
-
 
 class WeatherFragment : Fragment() {
     override fun onCreateView(
@@ -32,7 +31,6 @@ class WeatherFragment : Fragment() {
         val forecastSpaceData = MyData.parseData!![0]
         val forecastGrib = MyData.parseData!![2]
         val forecastTimeData = MyData.parseData!![3]
-        Log.i("test", forecastTimeData.toString())
         val temp = forecastGrib.getInt("T1H")
 
         //  위치 업데이트
